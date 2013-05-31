@@ -166,4 +166,5 @@ pip-log.txt
 #############
 ## Custom
 #############
-tinyxml
+cfg.example
+scripting.docs
