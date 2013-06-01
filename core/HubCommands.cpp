@@ -190,7 +190,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
 
                         iBanNum++;
 						BanList += "[ " + string(iBanNum) + " ]";
-                        
+
                         if(curBan->sIp[0] != '\0') {
                             if(((curBan->ui8Bits & hashBanMan::IP) == hashBanMan::IP) == true) {
 								BanList += " " + string(LanguageManager->sTexts[LAN_BANNED], (size_t)LanguageManager->ui16TextsLens[LAN_BANNED]);
@@ -240,9 +240,9 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                	if(dlen < 5 || sCommand[4] == '\0') {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cgag <%s>. %s!|", 
-                        SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], 
-                        SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], LanguageManager->sTexts[LAN_NICK_LWR], 
+                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cgag <%s>. %s!|",
+                        SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD],
+                        SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], LanguageManager->sTexts[LAN_NICK_LWR],
                         LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand4") == true) {
@@ -257,7 +257,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
 				if(strcasecmp(sCommand, curUser->sNick) == 0) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                    int iret = sprintf(msg+imsgLen, "<%s> %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_YOU_CANT_GAG_YOURSELF]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand6") == true) {
@@ -284,7 +284,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
         		if(user == NULL) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-        			int iret = sprintf(msg+imsgLen, "<%s> *** %s: %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+        			int iret = sprintf(msg+imsgLen, "<%s> *** %s: %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_ERROR], sCommand, LanguageManager->sTexts[LAN_IS_NOT_IN_USERLIST]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand8") == true) {
@@ -296,7 +296,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(((user->ui32BoolBits & User::BIT_GAGGED) == User::BIT_GAGGED) == true) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-        			int iret = sprintf(msg+imsgLen, "<%s> *** %s: %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+        			int iret = sprintf(msg+imsgLen, "<%s> *** %s: %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_ERROR], user->sNick, LanguageManager->sTexts[LAN_IS_ALREDY_GAGGED]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand10") == true) {
@@ -327,10 +327,10 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                     UserSendCharDelayed(user, msg, imsgLen);
                 }
 
-                if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == true) {            
+                if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == true) {
                     if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES_AS_PM] == true) {
                         imsgLen = sprintf(msg, "%s $<%s> *** %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
-                            SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick, 
+                            SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick,
                             LanguageManager->sTexts[LAN_HAS_GAGGED], user->sNick);
                         if(CheckSprintf(imsgLen, 1024, "HubCommands::DoCommand14") == true) {
 							g_GlobalDataQueue->SingleItemStore(msg, imsgLen, NULL, 0, GlobalDataQueue::SI_PM2OPS);
@@ -342,12 +342,12 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                             g_GlobalDataQueue->AddQueueItem(msg, imsgLen, NULL, 0, GlobalDataQueue::CMD_OPS);
                         }
                     }
-                } 
-                        
+                }
+
                 if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == false || ((curUser->ui32BoolBits & User::BIT_OPERATOR) == User::BIT_OPERATOR) == false) {
                     imsgLen = CheckFromPm(curUser, fromPM);
 
-        			int iret = sprintf(msg+imsgLen, "<%s> %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], user->sNick, 
+        			int iret = sprintf(msg+imsgLen, "<%s> %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], user->sNick,
                         LanguageManager->sTexts[LAN_HAS_GAGGED]);
         			imsgLen += iret;
         			if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand17") == true) {
@@ -367,9 +367,9 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(dlen < 9 || sCommand[8] == 0) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cgetinfo <%s>. %s.|", 
-                        SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], 
-                        SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], LanguageManager->sTexts[LAN_NICK_LWR], 
+                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cgetinfo <%s>. %s.|",
+                        SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD],
+                        SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], LanguageManager->sTexts[LAN_NICK_LWR],
                         LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand19") == true) {
@@ -398,7 +398,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(user == NULL) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> *** %s: %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                    int iret = sprintf(msg+imsgLen, "<%s> *** %s: %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_ERROR], sCommand, LanguageManager->sTexts[LAN_IS_NOT_IN_USERLIST]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand21") == true) {
@@ -406,7 +406,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                     }
                     return true;
                 }
-                
+
 				UncountDeflood(curUser, fromPM);
 
                 int imsgLen = CheckFromPm(curUser, fromPM);
@@ -474,7 +474,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                     memcpy(msg+imsgLen, user->sTag, user->ui8TagLen);
                     imsgLen += (int)user->ui8TagLen;
                 }
-                    
+
                 if(user->sConnection != NULL) {
                     int iret = sprintf(msg+imsgLen, "\n%s: ", LanguageManager->sTexts[LAN_CONNECTION]);
                     imsgLen += iret;
@@ -506,7 +506,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 }
 
                 msg[imsgLen] = '|';
-                msg[imsgLen+1] = '\0';  
+                msg[imsgLen+1] = '\0';
                 UserSendCharDelayed(curUser, msg, imsgLen+1);
                 return true;
             }
@@ -995,9 +995,9 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(dlen < 9) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cnickban <%s> <%s>. %s.|", 
-                       SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], 
-                       SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], LanguageManager->sTexts[LAN_NICK_LWR], 
+               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cnickban <%s> <%s>. %s.|",
+                       SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD],
+                       SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], LanguageManager->sTexts[LAN_NICK_LWR],
                        LanguageManager->sTexts[LAN_REASON_LWR], LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand45") == true) {
@@ -1025,9 +1025,9 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(sCommand[0] == '\0') {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> %s %cnickban <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
-                        LanguageManager->sTexts[LAN_NICK_LWR], LanguageManager->sTexts[LAN_REASON_LWR], 
+                    int iret = sprintf(msg+imsgLen, "<%s> %s %cnickban <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
+                        LanguageManager->sTexts[LAN_NICK_LWR], LanguageManager->sTexts[LAN_REASON_LWR],
                         LanguageManager->sTexts[LAN_NO_NICK_SPECIFIED]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand47") == true) {
@@ -1054,7 +1054,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
 				if(strcasecmp(sCommand, curUser->sNick) == 0) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                    int iret = sprintf(msg+imsgLen, "<%s> %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_YOU_CANT_BAN_YOURSELF]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand49") == true) {
@@ -1114,7 +1114,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                         UserClose(OtherUser);
                         imsgLen = CheckFromPm(curUser, fromPM);
 
-                        int iret = sprintf(msg+imsgLen, "<%s> *** %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                        int iret = sprintf(msg+imsgLen, "<%s> *** %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                             LanguageManager->sTexts[LAN_NICK], OtherUser->sNick, LanguageManager->sTexts[LAN_IS_ALREDY_BANNED_DISCONNECT]);
                         imsgLen += iret;
                         if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand55") == true) {
@@ -1130,8 +1130,8 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                     if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES_AS_PM] == true) {
                         int imsgLen;
                         if(reason == NULL) {
-                            imsgLen = sprintf(msg, "%s $<%s> *** %s %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                                SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick, 
+                            imsgLen = sprintf(msg, "%s $<%s> *** %s %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                                SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick,
                                 LanguageManager->sTexts[LAN_ADDED_LWR], sCommand, LanguageManager->sTexts[LAN_TO_BANS]);
                             if(CheckSprintf(imsgLen, 1024, "HubCommands::DoCommand59") == false) {
                                 return true;
@@ -1162,14 +1162,14 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
         	        } else {
                         int imsgLen;
                         if(reason == NULL) {
-                            imsgLen = sprintf(msg, "<%s> *** %s %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick, 
+                            imsgLen = sprintf(msg, "<%s> *** %s %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick,
                                 LanguageManager->sTexts[LAN_ADDED_LWR], sCommand, LanguageManager->sTexts[LAN_TO_BANS]);
                             if(CheckSprintf(imsgLen, 1024, "HubCommands::DoCommand61") == false) {
                                 return true;
                             }
                         } else {
                             if(strlen(reason) > 512) {
-                                imsgLen = sprintf(msg, "<%s> *** %s %s %s %s: ", 
+                                imsgLen = sprintf(msg, "<%s> *** %s %s %s %s: ",
                                     SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], sCommand, LanguageManager->sTexts[LAN_HAS_BEEN_BANNED_BY],
                                     curUser->sNick, LanguageManager->sTexts[LAN_BECAUSE_LWR]);
                                 if(CheckSprintf(imsgLen, 1024, "HubCommands::DoCommand62-1") == false) {
@@ -1197,7 +1197,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
         		if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == false || ((curUser->ui32BoolBits & User::BIT_OPERATOR) == User::BIT_OPERATOR) == false) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-            	   	int iret = sprintf(msg+imsgLen, "<%s> %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], sCommand, 
+            	   	int iret = sprintf(msg+imsgLen, "<%s> %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], sCommand,
                        LanguageManager->sTexts[LAN_ADDED_TO_BANS]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand64") == true) {
@@ -1218,9 +1218,9 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(dlen < 15) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cnicktempban <%s> <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
-                        LanguageManager->sTexts[LAN_NICK_LWR], LanguageManager->sTexts[LAN_TIME_LWR], LanguageManager->sTexts[LAN_REASON_LWR], 
+               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cnicktempban <%s> <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
+                        LanguageManager->sTexts[LAN_NICK_LWR], LanguageManager->sTexts[LAN_TIME_LWR], LanguageManager->sTexts[LAN_REASON_LWR],
                         LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand66") == true) {
@@ -1265,9 +1265,9 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(iCmdPartsLen[0] == 0 || iCmdPartsLen[1] == 0) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                   	int iret = sprintf(msg+imsgLen, "<%s> *** %s %cnicktempban <%s> <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
-                        LanguageManager->sTexts[LAN_NICK_LWR], LanguageManager->sTexts[LAN_TIME_LWR], LanguageManager->sTexts[LAN_REASON_LWR], 
+                   	int iret = sprintf(msg+imsgLen, "<%s> *** %s %cnicktempban <%s> <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
+                        LanguageManager->sTexts[LAN_NICK_LWR], LanguageManager->sTexts[LAN_TIME_LWR], LanguageManager->sTexts[LAN_REASON_LWR],
                         LanguageManager->sTexts[LAN_BAD_PARAMS_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand68") == false) {
@@ -1295,7 +1295,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
 				if(strcasecmp(sCmdParts[0], curUser->sNick) == 0) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                    int iret = sprintf(msg+imsgLen, "<%s> %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_YOU_CANT_BAN_YOURSELF]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand70") == true) {
@@ -1303,13 +1303,13 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                     }
                     return true;
            	    }
-           	    
+
                 User *utempban = hashManager->FindUser(sCmdParts[0], iCmdPartsLen[0]);
                 if(utempban != NULL) {
                     // PPK don't tempban user with higher profile
                     if(utempban->iProfile != -1 && curUser->iProfile > utempban->iProfile) {
                         int imsgLen = CheckFromPm(curUser, fromPM);
- 
+
                         int iret = sprintf(msg+imsgLen, "<%s> %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                             LanguageManager->sTexts[LAN_YOU_NOT_ALLOWED_TO], LanguageManager->sTexts[LAN_TEMP_BAN_NICK], utempban->sNick);
                         imsgLen += iret;
@@ -1330,9 +1330,9 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(iTime <= 0 || GenerateTempBanTime(cTime, (uint32_t)iTime, acc_time, ban_time) == false) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cnicktempban <%s> <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
-                        LanguageManager->sTexts[LAN_NICK_LWR], LanguageManager->sTexts[LAN_TIME_LWR], LanguageManager->sTexts[LAN_REASON_LWR], 
+                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cnicktempban <%s> <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
+                        LanguageManager->sTexts[LAN_NICK_LWR], LanguageManager->sTexts[LAN_TIME_LWR], LanguageManager->sTexts[LAN_REASON_LWR],
                         LanguageManager->sTexts[LAN_BAD_TIME_SPECIFIED]);
                         imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand74") == true) {
@@ -1497,9 +1497,9 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(dlen < 12) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-               	    int iret = sprintf(msg+imsgLen, "<%s> %s %cbanip <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD],  SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
-                        LanguageManager->sTexts[LAN_IP], LanguageManager->sTexts[LAN_REASON_LWR], 
+               	    int iret = sprintf(msg+imsgLen, "<%s> %s %cbanip <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD],  SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
+                        LanguageManager->sTexts[LAN_IP], LanguageManager->sTexts[LAN_REASON_LWR],
                         LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand89") == true) {
@@ -1520,8 +1520,8 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(dlen < 5) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cban <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
+               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cban <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
                         LanguageManager->sTexts[LAN_NICK_LWR], LanguageManager->sTexts[LAN_REASON_LWR], LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand91") == true) {
@@ -1529,7 +1529,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                     }
                     return true;
                 }
-                
+
                 return Ban(curUser, sCommand+4, fromPM, false);
             }
 
@@ -1546,8 +1546,8 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(dlen < 11) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %ctempban <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
+               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %ctempban <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
                         LanguageManager->sTexts[LAN_NICK_LWR], LanguageManager->sTexts[LAN_TIME_LWR], LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand93") == true) {
@@ -1569,8 +1569,8 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(dlen < 14) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %ctempbanip <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
+               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %ctempbanip <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
                         LanguageManager->sTexts[LAN_IP], LanguageManager->sTexts[LAN_TIME_LWR], LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand95") == true) {
@@ -1592,8 +1592,8 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(dlen < 11 || sCommand[10] == '\0') {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %ctempunban <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
+                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %ctempunban <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
                         LanguageManager->sTexts[LAN_IP_OR_NICK], LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand97") == false) {
@@ -1620,7 +1620,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(hashBanManager->TempUnban(sCommand) == false) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_SORRY], sCommand, LanguageManager->sTexts[LAN_IS_NOT_IN_MY_TEMP_BANS]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand99") == true) {
@@ -1633,14 +1633,14 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
 
                 if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == true) {
                    	if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES_AS_PM] == true) {
-           	            int imsgLen = sprintf(msg, "%s $<%s> *** %s %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                            SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick, 
+           	            int imsgLen = sprintf(msg, "%s $<%s> *** %s %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                            SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick,
                             LanguageManager->sTexts[LAN_REMOVED_LWR], sCommand, LanguageManager->sTexts[LAN_FROM_TEMP_BANS]);
                         if(CheckSprintf(imsgLen, 1024, "HubCommands::DoCommand100") == true) {
                             g_GlobalDataQueue->SingleItemStore(msg, imsgLen, NULL, 0, GlobalDataQueue::SI_PM2OPS);
                         }
               	    } else {
-                   	    int imsgLen = sprintf(msg, "<%s> *** %s %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick, 
+                   	    int imsgLen = sprintf(msg, "<%s> *** %s %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick,
                             LanguageManager->sTexts[LAN_REMOVED_LWR], sCommand, LanguageManager->sTexts[LAN_FROM_TEMP_BANS]);
                         if(CheckSprintf(imsgLen, 1024, "HubCommands::DoCommand101") == true) {
           	        	    g_GlobalDataQueue->AddQueueItem(msg, imsgLen, NULL, 0, GlobalDataQueue::CMD_OPS);
@@ -1651,7 +1651,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == false || ((curUser->ui32BoolBits & User::BIT_OPERATOR) == User::BIT_OPERATOR) == false) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], sCommand, 
+                    int iret = sprintf(msg+imsgLen, "<%s> %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], sCommand,
                         LanguageManager->sTexts[LAN_REMOVED_FROM_TEMP_BANS]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand103") == true) {
@@ -1671,9 +1671,9 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(dlen < 7 || sCommand[6] == '\0') {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                   	int iret = sprintf(msg+imsgLen, "<%s> *** %s %ctopic <%s>, %ctopic <off>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
-                        LanguageManager->sTexts[LAN_NEW_TOPIC], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
+                   	int iret = sprintf(msg+imsgLen, "<%s> *** %s %ctopic <%s>, %ctopic <off>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
+                        LanguageManager->sTexts[LAN_NEW_TOPIC], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
                         LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand105") == true) {
@@ -1708,7 +1708,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
 
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-        			int iret = sprintf(msg+imsgLen, "<%s> *** %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+        			int iret = sprintf(msg+imsgLen, "<%s> *** %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_TOPIC_HAS_BEEN_CLEARED]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand108") == true) {
@@ -1722,7 +1722,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
 
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> *** %s: %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                    int iret = sprintf(msg+imsgLen, "<%s> *** %s: %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_TOPIC_HAS_BEEN_SET_TO], sCommand);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand111") == true) {
@@ -1735,7 +1735,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
 
             return false;
 
-        case 'm':          
+        case 'm':
             //Hub-Commands: !myip
 			if(dlen == 4 && strncasecmp(sCommand+1, "yip", 3) == 0) {
                 int imsgLen = CheckFromPm(curUser, fromPM), iret = 0;
@@ -1766,8 +1766,8 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(dlen < 9) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cmassmsg <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
+                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cmassmsg <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
                         LanguageManager->sTexts[LAN_MESSAGE_LWR], LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand115") == true) {
@@ -1789,7 +1789,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
 
                 imsgLen = CheckFromPm(curUser, fromPM);
 
-                int iret = sprintf(msg+imsgLen, "<%s> *** %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                int iret = sprintf(msg+imsgLen, "<%s> *** %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                     LanguageManager->sTexts[LAN_MASSMSG_TO_ALL_SENT]);
                 imsgLen += iret;
                 if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand119") == true) {
@@ -1852,7 +1852,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(SettingManager->bBools[SETBOOL_ENABLE_SCRIPTING] == false) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> *** %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                    int iret = sprintf(msg+imsgLen, "<%s> *** %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_ERR_SCRIPTS_DISABLED]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand121") == true) {
@@ -1866,13 +1866,13 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 // post restart message
                 if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == true) {
                     if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES_AS_PM] == true) {
-                        int imsgLen = sprintf(msg, "%s $<%s> *** %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                        int imsgLen = sprintf(msg, "%s $<%s> *** %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                             SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick, LanguageManager->sTexts[LAN_RESTARTED_SCRIPTS]);
                         if(CheckSprintf(imsgLen, 1024, "HubCommands::DoCommand122") == true) {
 							g_GlobalDataQueue->SingleItemStore(msg, imsgLen, NULL, 0, GlobalDataQueue::SI_PM2OPS);
                         }
            	        } else {
-                        int imsgLen = sprintf(msg, "<%s> *** %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick, 
+                        int imsgLen = sprintf(msg, "<%s> *** %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick,
                             LanguageManager->sTexts[LAN_RESTARTED_SCRIPTS]);
                         if(CheckSprintf(imsgLen, 1024, "HubCommands::DoCommand123") == true) {
                	            g_GlobalDataQueue->AddQueueItem(msg, imsgLen, NULL, 0, GlobalDataQueue::CMD_OPS);
@@ -1883,7 +1883,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == false || ((curUser->ui32BoolBits & User::BIT_OPERATOR) == User::BIT_OPERATOR) == false) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                    int iret = sprintf(msg+imsgLen, "<%s> %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_SCRIPTS_RESTARTED]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand125") == true) {
@@ -1905,7 +1905,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
 				UncountDeflood(curUser, fromPM);
 
                 // Send message to all that we are going to restart the hub
-                int imsgLen = sprintf(msg,"<%s> %s. %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                int imsgLen = sprintf(msg,"<%s> %s. %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                     LanguageManager->sTexts[LAN_HUB_WILL_BE_RESTARTED], LanguageManager->sTexts[LAN_BACK_IN_FEW_MINUTES]);
                 if(CheckSprintf(imsgLen, 1024, "HubCommands::DoCommand126") == true) {
                     colUsers->SendChat2All(curUser, msg, imsgLen, NULL);
@@ -1926,7 +1926,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                	if(SettingManager->bBools[SETBOOL_ENABLE_TEXT_FILES] == false) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                  	int iret = sprintf(msg+imsgLen, "<%s> %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                  	int iret = sprintf(msg+imsgLen, "<%s> %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_TXT_SUP_NOT_ENABLED]);
                   	imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand128") == true) {
@@ -1941,13 +1941,13 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
 
                	if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == true) {
                     if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES_AS_PM] == true) {
-              	      	int imsgLen = sprintf(msg, "%s $<%s> *** %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+              	      	int imsgLen = sprintf(msg, "%s $<%s> *** %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                             SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick, LanguageManager->sTexts[LAN_RELOAD_TXT_FILES_LWR]);
                         if(CheckSprintf(imsgLen, 1024, "HubCommands::DoCommand129") == true) {
 							g_GlobalDataQueue->SingleItemStore(msg, imsgLen, NULL, 0, GlobalDataQueue::SI_PM2OPS);
                         }
         	        } else {
-            	      	int imsgLen = sprintf(msg, "<%s> *** %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick, 
+            	      	int imsgLen = sprintf(msg, "<%s> *** %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick,
                             LanguageManager->sTexts[LAN_RELOAD_TXT_FILES_LWR]);
             	      	if(CheckSprintf(imsgLen, 1024, "HubCommands::DoCommand130") == true) {
                             g_GlobalDataQueue->AddQueueItem(msg, imsgLen, NULL, 0, GlobalDataQueue::CMD_OPS);
@@ -1958,7 +1958,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == false || ((curUser->ui32BoolBits & User::BIT_OPERATOR) == User::BIT_OPERATOR) == false) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                  	int iret = sprintf(msg+imsgLen, "<%s> %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                  	int iret = sprintf(msg+imsgLen, "<%s> %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_TXT_FILES_RELOADED]);
                   	imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand132") == true) {
@@ -1978,7 +1978,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(SettingManager->bBools[SETBOOL_ENABLE_SCRIPTING] == false) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> *** %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                    int iret = sprintf(msg+imsgLen, "<%s> *** %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_ERR_SCRIPTS_DISABLED]);
                   	imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand134") == true) {
@@ -1990,8 +1990,8 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(dlen < 15 || sCommand[14] == '\0') {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %crestartscript <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
+                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %crestartscript <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
                         LanguageManager->sTexts[LAN_SCRIPTNAME_LWR], LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                   	imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand136") == true) {
@@ -2019,7 +2019,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(curScript == NULL || curScript->bEnabled == false || curScript->LUA == NULL) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_ERROR_SCRIPT], sCommand, LanguageManager->sTexts[LAN_NOT_RUNNING]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand138") == true) {
@@ -2038,7 +2038,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                     if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == true) {
                         if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES_AS_PM] == true) {
                             int imsgLen = sprintf(msg, "%s $<%s> *** %s %s: %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
-                                SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick, 
+                                SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick,
                                 LanguageManager->sTexts[LAN_RESTARTED_SCRIPT], sCommand);
                             if(CheckSprintf(imsgLen, 1024, "HubCommands::DoCommand139") == true) {
 								g_GlobalDataQueue->SingleItemStore(msg, imsgLen, NULL, 0, GlobalDataQueue::SI_PM2OPS);
@@ -2052,22 +2052,22 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                         }
                     }
 
-                    if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == false || 
+                    if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == false ||
                         ((curUser->ui32BoolBits & User::BIT_OPERATOR) == User::BIT_OPERATOR) == false) {
                         int imsgLen = CheckFromPm(curUser, fromPM);
 
-                        int iret = sprintf(msg+imsgLen, "<%s> %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                        int iret = sprintf(msg+imsgLen, "<%s> %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                             LanguageManager->sTexts[LAN_SCRIPT], sCommand, LanguageManager->sTexts[LAN_RESTARTED_LWR]);
                         imsgLen += iret;
                         if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand142") == true) {
                             UserSendCharDelayed(curUser, msg, imsgLen);
                         }
-                    } 
+                    }
                     return true;
 				} else {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_ERROR_SCRIPT], sCommand, LanguageManager->sTexts[LAN_RESTART_FAILED]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand144") == true) {
@@ -2087,8 +2087,8 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(dlen < 24) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %crangeban <%s> <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], LanguageManager->sTexts[LAN_FROMIP], 
+               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %crangeban <%s> <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], LanguageManager->sTexts[LAN_FROMIP],
                         LanguageManager->sTexts[LAN_TOIP], LanguageManager->sTexts[LAN_REASON_LWR], LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand148") == true) {
@@ -2110,9 +2110,9 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(dlen < 31) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %crangetempban <%s> <%s> <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                       LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], LanguageManager->sTexts[LAN_FROMIP], 
-                       LanguageManager->sTexts[LAN_TOIP],  LanguageManager->sTexts[LAN_TIME_LWR], LanguageManager->sTexts[LAN_REASON_LWR], 
+               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %crangetempban <%s> <%s> <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                       LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], LanguageManager->sTexts[LAN_FROMIP],
+                       LanguageManager->sTexts[LAN_TOIP],  LanguageManager->sTexts[LAN_TIME_LWR], LanguageManager->sTexts[LAN_REASON_LWR],
                        LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand150") == true) {
@@ -2135,7 +2135,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
                	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %crangeunban <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
-                       LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
+                       LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
                        LanguageManager->sTexts[LAN_FROMIP], LanguageManager->sTexts[LAN_TOIP], LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand152") == true) {
@@ -2164,8 +2164,8 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(dlen < 30) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %crangetempunban <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                       LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
+               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %crangetempunban <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                       LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
                        LanguageManager->sTexts[LAN_FROMIP], LanguageManager->sTexts[LAN_TOIP], LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand154") == true) {
@@ -2187,8 +2187,8 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(dlen < 30) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %crangepermunban <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                       LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
+               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %crangepermunban <%s> <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                       LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
                        LanguageManager->sTexts[LAN_FROMIP], LanguageManager->sTexts[LAN_TOIP], LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand156") == true) {
@@ -2471,8 +2471,8 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(dlen < 7 || sCommand[6] == '\0') {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cunban <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
+                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cunban <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
                         LanguageManager->sTexts[LAN_IP_OR_NICK], LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand158") == true) {
@@ -2499,7 +2499,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(hashBanManager->Unban(sCommand) == false) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_SORRY], sCommand, LanguageManager->sTexts[LAN_IS_NOT_IN_BANS]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand160") == true) {
@@ -2512,14 +2512,14 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
 
                 if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == true) {
                    	if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES_AS_PM] == true) {
-           	            int imsgLen = sprintf(msg, "%s $<%s> *** %s %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                            SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick, LanguageManager->sTexts[LAN_REMOVED_LWR], 
+           	            int imsgLen = sprintf(msg, "%s $<%s> *** %s %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                            SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick, LanguageManager->sTexts[LAN_REMOVED_LWR],
                             sCommand, LanguageManager->sTexts[LAN_FROM_BANS]);
                         if(CheckSprintf(imsgLen, 1024, "HubCommands::DoCommand161") == true) {
                             g_GlobalDataQueue->SingleItemStore(msg, imsgLen, NULL, 0, GlobalDataQueue::SI_PM2OPS);
                         }
               	    } else {
-                   	    int imsgLen = sprintf(msg, "<%s> *** %s %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick, 
+                   	    int imsgLen = sprintf(msg, "<%s> *** %s %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick,
                             LanguageManager->sTexts[LAN_REMOVED_LWR], sCommand, LanguageManager->sTexts[LAN_FROM_BANS]);
                         if(CheckSprintf(imsgLen, 1024, "HubCommands::DoCommand162") == true) {
           	        	    g_GlobalDataQueue->AddQueueItem(msg, imsgLen, NULL, 0, GlobalDataQueue::CMD_OPS);
@@ -2527,11 +2527,11 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
           	    	}
                 }
 
-                if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == false || 
+                if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == false ||
                     ((curUser->ui32BoolBits & User::BIT_OPERATOR) == User::BIT_OPERATOR) == false) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], sCommand, 
+                    int iret = sprintf(msg+imsgLen, "<%s> %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], sCommand,
                         LanguageManager->sTexts[LAN_REMOVED_FROM_BANS]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand164") == true) {
@@ -2552,8 +2552,8 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                	if(dlen < 7 || sCommand[6] == '\0') {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                   	int iret = sprintf(msg+imsgLen, "<%s> *** %s %cungag <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
+                   	int iret = sprintf(msg+imsgLen, "<%s> *** %s %cungag <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
                         LanguageManager->sTexts[LAN_NICK_LWR], LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand166") == true) {
@@ -2581,7 +2581,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(user == NULL) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_ERROR], sCommand, LanguageManager->sTexts[LAN_IS_NOT_IN_USERLIST]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand168") == true) {
@@ -2593,7 +2593,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(((user->ui32BoolBits & User::BIT_GAGGED) == User::BIT_GAGGED) == false) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-        			int iret = sprintf(msg+imsgLen, "<%s> *** %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+        			int iret = sprintf(msg+imsgLen, "<%s> *** %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_ERROR], sCommand, LanguageManager->sTexts[LAN_IS_NOT_GAGGED]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand170") == true) {
@@ -2614,7 +2614,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == true) {
          	    	if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES_AS_PM] == true) {
           	    	    imsgLen = sprintf(msg, "%s $<%s> *** %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
-                            SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick, 
+                            SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick,
                             LanguageManager->sTexts[LAN_HAS_UNGAGGED], user->sNick);
                         if(CheckSprintf(imsgLen, 1024, "HubCommands::DoCommand172") == true) {
 							g_GlobalDataQueue->SingleItemStore(msg, imsgLen, NULL, 0, GlobalDataQueue::SI_PM2OPS);
@@ -2628,11 +2628,11 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
           		    }
                 }
 
-                if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == false || 
+                if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == false ||
                     ((curUser->ui32BoolBits & User::BIT_OPERATOR) == User::BIT_OPERATOR) == false) {
                     imsgLen = CheckFromPm(curUser, fromPM);
 
-        			int iret = sprintf(msg+imsgLen, "<%s> %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], user->sNick, 
+        			int iret = sprintf(msg+imsgLen, "<%s> %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], user->sNick,
                         LanguageManager->sTexts[LAN_HAS_UNGAGGED]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand175") == true) {
@@ -2656,8 +2656,8 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(dlen < 4 || sCommand[3] == '\0') {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cop <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
+               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cop <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
                         LanguageManager->sTexts[LAN_NICK_LWR], LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand177") == true) {
@@ -2685,7 +2685,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(user == NULL) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                   	int iret = sprintf(msg+imsgLen, "<%s> *** %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                   	int iret = sprintf(msg+imsgLen, "<%s> *** %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_ERROR], sCommand, LanguageManager->sTexts[LAN_IS_NOT_IN_USERLIST]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand179") == true) {
@@ -2697,7 +2697,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(((user->ui32BoolBits & User::BIT_OPERATOR) == User::BIT_OPERATOR) == true) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                   	int iret = sprintf(msg+imsgLen, "<%s> *** %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], user->sNick, 
+                   	int iret = sprintf(msg+imsgLen, "<%s> *** %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], user->sNick,
                         LanguageManager->sTexts[LAN_ALREDY_IS_OP]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand181") == true) {
@@ -2712,7 +2712,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(pidx == -1) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                   	int iret = sprintf(msg+imsgLen, "<%s> *** %s. %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                   	int iret = sprintf(msg+imsgLen, "<%s> *** %s. %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_ERROR], LanguageManager->sTexts[LAN_OPERATOR_PROFILE_MISSING]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand183") == true) {
@@ -2760,7 +2760,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == true) {
                     if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES_AS_PM] == true) {
                         imsgLen = sprintf(msg, "%s $<%s> *** %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
-                            SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick, 
+                            SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick,
                             LanguageManager->sTexts[LAN_SETS_OP_MODE_TO], user->sNick);
                         if(CheckSprintf(imsgLen, 1024, "HubCommands::DoCommand187") == true) {
 							g_GlobalDataQueue->SingleItemStore(msg, imsgLen, NULL, 0, GlobalDataQueue::SI_PM2OPS);
@@ -2774,11 +2774,11 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                     }
                 }
 
-                if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == false || 
+                if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == false ||
                     ((curUser->ui32BoolBits & User::BIT_OPERATOR) == User::BIT_OPERATOR) == false) {
                     imsgLen = CheckFromPm(curUser, fromPM);
 
-                   	int iret = sprintf(msg+imsgLen, "<%s> *** %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], user->sNick, 
+                   	int iret = sprintf(msg+imsgLen, "<%s> *** %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], user->sNick,
                         LanguageManager->sTexts[LAN_GOT_OP_STATUS]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand190") == true) {
@@ -2799,8 +2799,8 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(dlen < 11) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %copmassmsg <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
+                    int iret = sprintf(msg+imsgLen, "<%s> *** %s %copmassmsg <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
                         LanguageManager->sTexts[LAN_MESSAGE_LWR], LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand192") == true) {
@@ -2822,7 +2822,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
 
                 imsgLen = CheckFromPm(curUser, fromPM);
 
-                int iret = sprintf(msg+imsgLen, "<%s> *** %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                int iret = sprintf(msg+imsgLen, "<%s> *** %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                     LanguageManager->sTexts[LAN_MASSMSG_TO_OPS_SND]);
                 imsgLen += iret;
                 if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand196") == true) {
@@ -2844,8 +2844,8 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(dlen < 6) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cdrop <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
+               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cdrop <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
                         LanguageManager->sTexts[LAN_NICK_LWR], LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand198") == true) {
@@ -2887,7 +2887,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
                	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cdrop <%s>. %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
-                       LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
+                       LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
                        LanguageManager->sTexts[LAN_NICK_LWR], LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand200") == true) {
@@ -2895,12 +2895,12 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                     }
                     return true;
                 }
-                
+
                 // Self-drop ?
 				if(strcasecmp(sCommand, curUser->sNick) == 0) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret= sprintf(msg+imsgLen, "<%s> %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                    int iret= sprintf(msg+imsgLen, "<%s> %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_YOU_CANT_DROP_YOURSELF]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand202") == true) {
@@ -2908,12 +2908,12 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                     }
                     return true;
            	    }
-           	    
+
                 User *user = hashManager->FindUser(sCommand, szNickLen);
                 if(user == NULL) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                   	int iret = sprintf(msg+imsgLen, "<%s> *** %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], sCommand, 
+                   	int iret = sprintf(msg+imsgLen, "<%s> *** %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], sCommand,
                         LanguageManager->sTexts[LAN_IS_NOT_IN_USERLIST]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand204") == true) {
@@ -2921,7 +2921,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                     }
                     return true;
                 }
-                
+
         		// PPK don't drop user with higher profile
         		if(user->iProfile != -1 && curUser->iProfile > user->iProfile) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
@@ -2968,7 +2968,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
          	    	} else {
                         int imsgLen;
                         if(reason != NULL && strlen(reason) > 512) {
-                            imsgLen = sprintf(msg, "<%s> *** %s %s %s %s %s %s: |", 
+                            imsgLen = sprintf(msg, "<%s> *** %s %s %s %s %s %s: |",
                             SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], sCommand, LanguageManager->sTexts[LAN_WITH_IP], user->sIP,
                             LanguageManager->sTexts[LAN_DROP_ADDED_TEMPBAN_BY], curUser->sNick, LanguageManager->sTexts[LAN_BECAUSE_LWR]);
                             if(CheckSprintf(imsgLen, 1024, "HubCommands::DoCommand207-1") == false) {
@@ -2980,7 +2980,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                             msg[imsgLen-1] = '|';
                             msg[imsgLen] = '\0';
                         } else {
-        	       		    imsgLen = sprintf(msg, "<%s> *** %s %s %s %s %s %s: %s.|", 
+        	       		    imsgLen = sprintf(msg, "<%s> *** %s %s %s %s %s %s: %s.|",
                                 SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], sCommand, LanguageManager->sTexts[LAN_WITH_IP], user->sIP,
                                 LanguageManager->sTexts[LAN_DROP_ADDED_TEMPBAN_BY], curUser->sNick, LanguageManager->sTexts[LAN_BECAUSE_LWR],
                                 reason == NULL ? LanguageManager->sTexts[LAN_NO_REASON_SPECIFIED] : reason);
@@ -3025,7 +3025,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 return true;
             }
 
-            // !DelRegUser <nick>   
+            // !DelRegUser <nick>
 			if(strncasecmp(sCommand+1, "elreguser ", 10) == 0) {
                 if(ProfileMan->IsAllowed(curUser, ProfileManager::DELREGUSER) == false) {
                     SendNoPermission(curUser, fromPM);
@@ -3035,7 +3035,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(dlen > 255) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                    int iret = sprintf(msg+imsgLen, "<%s> *** %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                    int iret = sprintf(msg+imsgLen, "<%s> *** %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_CMD_TOO_LONG]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand212") == true) {
@@ -3045,8 +3045,8 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 } else if(dlen < 13) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cdelreguser <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
+               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %cdelreguser <%s>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
                         LanguageManager->sTexts[LAN_NICK_LWR], LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand214") == true) {
@@ -3063,7 +3063,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(reg == NULL) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %s %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s %s %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_ERROR], sCommand, LanguageManager->sTexts[LAN_IS_NOT_IN_REGS]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand216") == true) {
@@ -3077,7 +3077,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(curUser->iProfile > 0 && reg->iProfile <= curUser->iProfile) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+               	    int iret = sprintf(msg+imsgLen, "<%s> *** %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                         LanguageManager->sTexts[LAN_YOURE_NOT_ALWD_TO_DLT_USER_THIS_PRFL]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand218") == true) {
@@ -3092,14 +3092,14 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
 
                 if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == true) {
                     if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES_AS_PM] == true) {
-                        int imsgLen = sprintf(msg, "%s $<%s> *** %s %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                            SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick, LanguageManager->sTexts[LAN_REMOVED_LWR], 
+                        int imsgLen = sprintf(msg, "%s $<%s> *** %s %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                            SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick, LanguageManager->sTexts[LAN_REMOVED_LWR],
                             sCommand, LanguageManager->sTexts[LAN_FROM_REGS]);
                         if(CheckSprintf(imsgLen, 1024, "HubCommands::DoCommand219") == true) {
 							g_GlobalDataQueue->SingleItemStore(msg, imsgLen, NULL, 0, GlobalDataQueue::SI_PM2OPS);
                         }
                     } else {
-                        int imsgLen = sprintf(msg, "<%s> *** %s %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick, 
+                        int imsgLen = sprintf(msg, "<%s> *** %s %s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], curUser->sNick,
                             LanguageManager->sTexts[LAN_REMOVED_LWR], sCommand, LanguageManager->sTexts[LAN_FROM_REGS]);
                         if(CheckSprintf(imsgLen, 1024, "HubCommands::DoCommand220") == true) {
                             g_GlobalDataQueue->AddQueueItem(msg, imsgLen, NULL, 0, GlobalDataQueue::CMD_OPS);
@@ -3110,7 +3110,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES] == false || ((curUser->ui32BoolBits & User::BIT_OPERATOR) == User::BIT_OPERATOR) == false) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-               	    int iret = sprintf(msg+imsgLen, "<%s> %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], sCommand, 
+               	    int iret = sprintf(msg+imsgLen, "<%s> %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], sCommand,
                         LanguageManager->sTexts[LAN_REMOVED_FROM_REGS]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand222") == true) {
@@ -3131,9 +3131,9 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(dlen < 7) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
-                   	int iret = sprintf(msg+imsgLen, "<%s> *** %s %cdebug <%s>, %cdebug <off>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
-                        LanguageManager->sTexts[LAN_PORT_LWR], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
+                   	int iret = sprintf(msg+imsgLen, "<%s> *** %s %cdebug <%s>, %cdebug <off>. %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                        LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
+                        LanguageManager->sTexts[LAN_PORT_LWR], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
                         LanguageManager->sTexts[LAN_NO_PARAM_GIVEN]);
                     imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand225") == true) {
@@ -3150,7 +3150,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
 
                             int imsgLen = CheckFromPm(curUser, fromPM);
 
-                            int iret = sprintf(msg+imsgLen, "<%s> *** %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                            int iret = sprintf(msg+imsgLen, "<%s> *** %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                                 LanguageManager->sTexts[LAN_UNSUB_FROM_UDP_DBG]);
                             imsgLen += iret;
                             if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand227") == true) {
@@ -3165,7 +3165,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                         } else {
                             int imsgLen = CheckFromPm(curUser, fromPM);
 
-                            int iret = sprintf(msg+imsgLen, "<%s> *** %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                            int iret = sprintf(msg+imsgLen, "<%s> *** %s!|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                                 LanguageManager->sTexts[LAN_UNABLE_FIND_UDP_DBG_INTER]);
                             imsgLen += iret;
                             if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand230") == true) {
@@ -3176,7 +3176,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                     } else {
                         int imsgLen = CheckFromPm(curUser, fromPM);
 
-                        int iret = sprintf(msg+imsgLen, "<%s> *** %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                        int iret = sprintf(msg+imsgLen, "<%s> *** %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                             LanguageManager->sTexts[LAN_NOT_UDP_DEBUG_SUBSCRIB]);
                         imsgLen += iret;
                         if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand232") == true) {
@@ -3188,8 +3188,8 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                     if(UdpDebug->CheckUdpSub(curUser) == true) {
                         int imsgLen = CheckFromPm(curUser, fromPM);
 
-                        int iret = sprintf(msg+imsgLen, "<%s> *** %s %cdebug <off> %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                            LanguageManager->sTexts[LAN_ALRD_UDP_SUBSCRIP_TO_UNSUB], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
+                        int iret = sprintf(msg+imsgLen, "<%s> *** %s %cdebug <off> %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                            LanguageManager->sTexts[LAN_ALRD_UDP_SUBSCRIP_TO_UNSUB], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
                             LanguageManager->sTexts[LAN_IN_MAINCHAT]);
                         imsgLen += iret;
                         if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand234") == true) {
@@ -3202,8 +3202,8 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                     if(dbg_port <= 0) {
                         int imsgLen = CheckFromPm(curUser, fromPM);
 
-                        int iret = sprintf(msg+imsgLen, "<%s> *** %s %cdebug <%s>, %cdebug <off>.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                            LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], 
+                        int iret = sprintf(msg+imsgLen, "<%s> *** %s %cdebug <%s>, %cdebug <off>.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                            LanguageManager->sTexts[LAN_SNTX_ERR_IN_CMD], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0],
                             LanguageManager->sTexts[LAN_PORT_LWR], SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0]);
                         imsgLen += iret;
                         if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand236") == true) {
@@ -3217,8 +3217,8 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
 
                         int imsgLen = CheckFromPm(curUser, fromPM);
 
-                        int iret = sprintf(msg+imsgLen, "<%s> *** %s %d. %s %cdebug <off> %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
-                            LanguageManager->sTexts[LAN_SUBSCIB_UDP_DEBUG_ON_PORT], dbg_port, LanguageManager->sTexts[LAN_TO_UNSUB_TYPE], 
+                        int iret = sprintf(msg+imsgLen, "<%s> *** %s %d. %s %cdebug <off> %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
+                            LanguageManager->sTexts[LAN_SUBSCIB_UDP_DEBUG_ON_PORT], dbg_port, LanguageManager->sTexts[LAN_TO_UNSUB_TYPE],
                             SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0], LanguageManager->sTexts[LAN_IN_MAINCHAT]);
                         imsgLen += iret;
                         if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand238") == true) {
@@ -3233,7 +3233,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                     } else {
                         int imsgLen = CheckFromPm(curUser, fromPM);
 
-                        int iret = sprintf(msg+imsgLen, "<%s> *** %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                        int iret = sprintf(msg+imsgLen, "<%s> *** %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                             LanguageManager->sTexts[LAN_UDP_DEBUG_SUBSCRIB_FAILED]);
                         imsgLen += iret;
                         if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand241") == true) {
@@ -3442,7 +3442,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
 
                 BanItem * Ban = hashBanManager->FindNick(sCommand, dlen-13);
                 if(Ban == NULL) {
-                    int imsgLen = CheckFromPm(curUser, fromPM);   
+                    int imsgLen = CheckFromPm(curUser, fromPM);
 
                    	int iret = sprintf(msg+imsgLen, "<%s> *** %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], LanguageManager->sTexts[LAN_NO_BAN_FOUND]);
            	        imsgLen += iret;
@@ -3452,7 +3452,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                     return true;
                 }
 
-                int imsgLen = CheckFromPm(curUser, fromPM);                        
+                int imsgLen = CheckFromPm(curUser, fromPM);
 
                 int iret = sprintf(msg+imsgLen, "<%s> %s: %s", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], LanguageManager->sTexts[LAN_BANNED_NICK], Ban->sNick);
            	    imsgLen += iret;
@@ -3555,7 +3555,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                     }
                     return true;
                 }
-                
+
                 time_t acc_time;
                 time(&acc_time);
 
@@ -3783,7 +3783,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                         return true;
                     }
                 }
-                
+
                 int imsgLen = CheckFromPm(curUser, fromPM);
 
                 int iret = sprintf(msg+imsgLen, "<%s> *** %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], LanguageManager->sTexts[LAN_NO_BAN_FOUND]);
@@ -3819,7 +3819,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
 
                 sCommand += 14;
                 char *ipto = strchr(sCommand, ' ');
-                
+
                 if(ipto == NULL) {
                     int imsgLen = CheckFromPm(curUser, fromPM);
 
@@ -3881,7 +3881,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                     }
                     return true;
                 }
-                
+
                 int imsgLen = CheckFromPm(curUser, fromPM);
 
                 int iret = sprintf(msg+imsgLen, "<%s> %s: %s-%s", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], LanguageManager->sTexts[LAN_RANGE], RangeBan->sIpFrom, RangeBan->sIpTo);
@@ -3889,7 +3889,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                 if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand305") == false) {
                     return true;
                 }
-                    
+
                 if(((RangeBan->ui8Bits & hashBanMan::FULL) == hashBanMan::FULL) == true) {
                     int iret = sprintf(msg+imsgLen, " (%s)", LanguageManager->sTexts[LAN_FULL]);
                     imsgLen += iret;
@@ -4082,7 +4082,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                         LanguageManager->sTexts[LAN_IS_ALREDY_REGISTERED]);
                	    imsgLen += iret;
                     if(CheckSprintf1(iret, imsgLen, 1024, "HubCommands::DoCommand323") == true) {
-                        UserSendCharDelayed(curUser, msg, imsgLen);      
+                        UserSendCharDelayed(curUser, msg, imsgLen);
                     }
                     return true;
                 }
@@ -4115,7 +4115,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                         UserSendCharDelayed(curUser, msg, imsgLen);
                     }
                 }
-            
+
                 User *AddedUser = hashManager->FindUser(sCmdParts[0], iCmdPartsLen[0]);
                 if(AddedUser != NULL) {
                     bool bAllowedOpChat = ProfileMan->IsAllowed(AddedUser, ProfileManager::ALLOWEDOPCHAT);
@@ -4146,8 +4146,8 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
                                 }
                             }
                         }
-                    } 
-                }         
+                    }
+                }
                 return true;
             }
 
@@ -5173,7 +5173,7 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
 					AppendDebugLog("%s - [MEM] Cannot reallocate %" PRIu64 " bytes for Hub-Commands passwd\n", (uint64_t)(szPassLen+1));
 
                     return true;
-                }   
+                }
                 memcpy(pReg->sPass, sCommand+7, szPassLen);
                 pReg->sPass[szPassLen] = '\0';
 
@@ -5409,13 +5409,13 @@ bool HubCommands::DoCommand(User * curUser, char * sCommand, const size_t &szCmd
 
                 return RangeTempBan(curUser, sCommand+17, dlen-17, fromPM, true);
             }
-            
+
             return false;
     }
 
 /*	int imsgLen = sprintf(msg, "<%s> *** Unknown command.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC]);
     UserSendCharDelayed(curUser, msg, imsgLen);
-    
+
     return(sCommand[0] == SettingManager->sTexts[SETTXT_CHAT_COMMANDS_PREFIXES][0]); // returns TRUE for unknown command, FALSE for Not_a_command*/
 	return false; // PPK ... and send to all as chat ;)
 }
@@ -5629,7 +5629,7 @@ bool HubCommands::BanIp(User * curUser, char * sCommand, bool fromPM, bool bFull
 			memset(ui128Hash, 0, 16);
 
             HashIP(sCommand, ui128Hash);
-          
+
             User *next = hashManager->FindUser(ui128Hash);
             while(next != NULL) {
             	User *cur = next;
@@ -5956,7 +5956,7 @@ bool HubCommands::TempBan(User * curUser, char * sCommand, const size_t &dlen, b
         }
         return true;
     }
-           	    
+
     User *utempban = hashManager->FindUser(sCmdParts[0], iCmdPartsLen[0]);
     if(utempban != NULL) {
         // PPK don't tempban user with higher profile
@@ -6193,7 +6193,7 @@ bool HubCommands::TempBanIp(User * curUser, char * sCommand, const size_t &dlen,
 			memset(ui128Hash, 0, 16);
 
             HashIP(sCommand, ui128Hash);
-          
+
             User *next = hashManager->FindUser(ui128Hash);
             while(next != NULL) {
             	User *cur = next;
@@ -6589,7 +6589,7 @@ bool HubCommands::RangeBan(User * curUser, char * sCommand, const size_t &dlen, 
         if(SettingManager->bBools[SETBOOL_SEND_STATUS_MESSAGES_AS_PM] == true) {
             int imsgLen;
             if(sCmdParts[2] == NULL) {
-                imsgLen = sprintf(msg, "%s $<%s> *** %s %s-%s %s %s%s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], 
+                imsgLen = sprintf(msg, "%s $<%s> *** %s %s-%s %s %s%s %s %s.|", SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC], SettingManager->sPreTexts[SetMan::SETPRETXT_HUB_SEC],
                     LanguageManager->sTexts[LAN_RANGE], sCmdParts[0], sCmdParts[1], LanguageManager->sTexts[LAN_IS_LWR], bFull == true ? LanguageManager->sTexts[LAN_FULL_LWR] : "",
                     LanguageManager->sTexts[LAN_BANNED_LWR], LanguageManager->sTexts[LAN_BY_LWR], curUser->sNick);
                 if(CheckSprintf(imsgLen, 1024, "HubCommands::DoCommand524") == false) {
@@ -6944,7 +6944,7 @@ bool HubCommands::RangeUnban(User * curUser, char * sCommand, bool fromPM, unsig
             UserSendCharDelayed(curUser, msg, imsgLen);
         }
     }
-    
+
     return true;
 }
 //---------------------------------------------------------------------------
@@ -7024,7 +7024,7 @@ bool HubCommands::RangeUnban(User * curUser, char * sCommand, bool fromPM) {
             UserSendCharDelayed(curUser, msg, imsgLen);
         }
     }
-    
+
     return true;
 }
 //---------------------------------------------------------------------------
